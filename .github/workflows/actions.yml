@@ -56,17 +56,31 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Login to Space
+        uses: docker/login-action@v2
+        with:
+          registry: registry.jetbrains.team
+          username: Viktor.Tiulpin
+          password: ${{ secrets.DOCKER_TOKEN }}
+      - run: docker pull registry.jetbrains.team/p/sa/containers/qodana-js:2022.2-nightly
       - uses: ./
         with:
-          args: --print-problems,--log-level,debug
+          args: -l,registry.jetbrains.team/p/sa/containers/qodana-js:2022.2-nightly,--print-problems,--log-level,debug
 
   qodana-no-pr: # pr mode disabled
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Login to Space
+        uses: docker/login-action@v2
+        with:
+          registry: registry.jetbrains.team
+          username: Viktor.Tiulpin
+          password: ${{ secrets.DOCKER_TOKEN }}
+      - run: docker pull registry.jetbrains.team/p/sa/containers/qodana-js:2022.2-nightly
       - uses: ./
         with:
-          args: --print-problems,--log-level,debug
+          args: -l,registry.jetbrains.team/p/sa/containers/qodana-js:2022.2-nightly,--print-problems,--log-level,debug
           pr-mode: false
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
