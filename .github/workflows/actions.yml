@@ -50,6 +50,7 @@ jobs:
 
   qodana: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
+    environment: Qodana
     steps:
       - uses: actions/checkout@v3
         with:
@@ -57,8 +58,6 @@ jobs:
       - uses: ./
         with:
           args: --print-problems,--log-level,debug
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
   qodana-no-pr: # pr mode disabled
     runs-on: ubuntu-latest
