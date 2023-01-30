@@ -78,7 +78,7 @@ jobs:
           username: Viktor.Tiulpin
           password: ${{ secrets.DOCKER_TOKEN }}
       - run: docker pull registry.jetbrains.team/p/sa/containers/qodana-js:2022.2-nightly
-      - uses: JetBrains/qodana-action@v2022.2.1
+      - uses: JetBrains/qodana-action@v2022.3.2
         with:
           args: -l,registry.jetbrains.team/p/sa/containers/qodana-js:2022.2-nightly,--print-problems,--log-level,debug
           pr-mode: false
